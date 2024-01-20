@@ -29,16 +29,16 @@ public class IntervalService {
 
     public String min(Kind kind) {
         return switch (kind) {
-            case DIGITS -> digitIntervalRepo.findMinInterval().toString();
-            case LETTERS -> letterIntervalRepo.findMinInterval().toString();
+            case DIGITS -> digitIntervalRepo.findMinInterval().orElseThrow().toString();
+            case LETTERS -> letterIntervalRepo.findMinInterval().orElseThrow().toString();
         };
     }
 
     private String digitsMerge(List<List<?>> request) {
         var intervals = request
                 .stream()
-                .sorted(Comparator.comparingInt(o -> (int) o.get(0)))
                 .map(i -> (List<Integer>) i)
+                .sorted(Comparator.comparingInt(o -> o.get(0)))
                 .toList();
 
         var output = new ArrayList<>(List.of(intervals.get(0)));
@@ -73,8 +73,14 @@ public class IntervalService {
     private String lettersMerge(List<List<?>> request) {
         var intervals = request
                 .stream()
-                .sorted(Comparator.comparing(o -> o.get(0).toString().charAt(0)))
-                .map(i -> (List<String>) i)
+                .map(i -> {
+                    if (i.get(0).toString().length() == 1 && i.get(1).toString().length() == 1) {
+                        return (List<String>) i;
+                    } else {
+                        throw new IllegalArgumentException("Must be single-letter objects");
+                    }
+                })
+                .sorted(Comparator.comparing(o -> o.get(0).charAt(0)))
                 .toList();
 
         var output = new ArrayList<>(List.of(intervals.get(0)));

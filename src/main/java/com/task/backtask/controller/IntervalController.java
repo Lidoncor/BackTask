@@ -17,12 +17,12 @@ public class IntervalController {
     private final IntervalService intervalService;
 
     @PostMapping("/merge")
-    public ResponseEntity<?> merge(@RequestBody List<List<?>> request, @RequestParam Kind kind) {
+    public ResponseEntity<String> merge(@RequestBody List<List<?>> request, @RequestParam Kind kind) {
         return new ResponseEntity<>(intervalService.merge(request, kind), HttpStatus.OK);
     }
 
     @GetMapping("/min")
-    public ResponseEntity<?> min(@RequestParam Kind kind) {
+    public ResponseEntity<String> min(@RequestParam Kind kind) {
         return new ResponseEntity<>(intervalService.min(kind), HttpStatus.OK);
     }
 }

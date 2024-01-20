@@ -1,10 +1,11 @@
 package com.task.backtask.repository;
 
-import com.task.backtask.entity.DigitInterval;
 import com.task.backtask.entity.LetterInterval;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface LetterIntervalRepo extends CrudRepository<LetterInterval, Integer> {
@@ -17,5 +18,5 @@ public interface LetterIntervalRepo extends CrudRepository<LetterInterval, Integ
             ORDER BY v.id
             LIMIT 1
             """)
-    LetterInterval findMinInterval();
+    Optional<LetterInterval> findMinInterval();
 }
