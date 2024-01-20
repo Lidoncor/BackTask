@@ -19,4 +19,9 @@ public class LetterInterval {
     private final String start;
 
     private final String end;
+
+    @Override
+    public String toString() {
+        return "[" + start + ", " + end + "]";
+    }
 }

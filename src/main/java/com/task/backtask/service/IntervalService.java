@@ -27,6 +27,13 @@ public class IntervalService {
         };
     }
 
+    public String min(Kind kind) {
+        return switch (kind) {
+            case DIGITS -> digitIntervalRepo.findMinInterval().toString();
+            case LETTERS -> letterIntervalRepo.findMinInterval().toString();
+        };
+    }
+
     private String digitsMerge(List<List<?>> request) {
         var intervals = request
                 .stream()
