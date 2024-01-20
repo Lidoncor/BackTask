@@ -1,7 +1,7 @@
 package com.task.backtask.configuration.converter;
 
 
-import com.task.backtask.type.Kind;
+import com.task.backtask.types.Kind;
 import org.springframework.core.convert.converter.Converter;
 
 public class StringToKindConverter implements Converter<String, Kind> {

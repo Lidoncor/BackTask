@@ -16,7 +16,7 @@ public class LetterInterval {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private final char start;
+    private final String start;
 
-    private final char end;
+    private final String end;
 }
