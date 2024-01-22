@@ -5,7 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -34,7 +33,9 @@ class LetterIntervalRepoTest {
 
         var returned = letterIntervalRepo.findMinInterval();
 
-        assertThat(returned.get())
+        assertThat(returned)
+                .isPresent()
+                .get()
                 .returns("a", from(LetterInterval::getStart))
                 .returns("j", from(LetterInterval::getEnd));
     }

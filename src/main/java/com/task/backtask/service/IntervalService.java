@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 @RequiredArgsConstructor
 @Service
 public class IntervalService {

@@ -33,7 +33,9 @@ class DigitIntervalRepoTest {
 
         var returned = digitIntervalRepo.findMinInterval();
 
-        assertThat(returned.get())
+        assertThat(returned)
+                .isPresent()
+                .get()
                 .returns(1, from(DigitInterval::getStart))
                 .returns(6, from(DigitInterval::getEnd));
     }

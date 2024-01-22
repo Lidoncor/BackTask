@@ -35,7 +35,7 @@ class IntervalServiceTest {
     @Test
     void mergeDigitsTest() {
         var returned = intervalService.merge(
-                Arrays.asList(
+                List.of(
                         Arrays.asList(1, 4),
                         Arrays.asList(3, 6),
                         Arrays.asList(8, 10)
@@ -55,14 +55,14 @@ class IntervalServiceTest {
 
     @Test
     void mergeDigitsClassCastExceptionTest() {
-        assertThatThrownBy(() -> intervalService.merge(Arrays.asList(Arrays.asList(1, 4)), Kind.LETTERS))
+        assertThatThrownBy(() -> intervalService.merge(List.of(Arrays.asList(1, 4)), Kind.LETTERS))
                 .isInstanceOf(ClassCastException.class);
     }
 
     @Test
     void mergeLettersTest() {
         var returned = intervalService.merge(
-                Arrays.asList(
+                List.of(
                         Arrays.asList("a", "f"),
                         Arrays.asList("d", "j"),
                         Arrays.asList("r", "z")
@@ -82,7 +82,7 @@ class IntervalServiceTest {
 
     @Test
     void mergeLettersIllegalArgumentExceptionTest() {
-        assertThatThrownBy(() -> intervalService.merge(Arrays.asList(Arrays.asList("aaa", "bbb")), Kind.LETTERS))
+        assertThatThrownBy(() -> intervalService.merge(List.of(Arrays.asList("aaa", "bbb")), Kind.LETTERS))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
