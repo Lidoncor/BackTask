@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+@SuppressWarnings("unused")
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @Getter

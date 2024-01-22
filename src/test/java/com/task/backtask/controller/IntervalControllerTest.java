@@ -2,8 +2,6 @@ package com.task.backtask.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.task.backtask.entity.DigitInterval;
-import com.task.backtask.entity.LetterInterval;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

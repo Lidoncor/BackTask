@@ -1,14 +1,10 @@
 package com.task.backtask.service;
 
-import com.google.gson.Gson;
 import com.task.backtask.entity.DigitInterval;
 import com.task.backtask.entity.LetterInterval;
 import com.task.backtask.repository.DigitIntervalRepo;
 import com.task.backtask.repository.LetterIntervalRepo;
 import com.task.backtask.types.Kind;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,13 +31,6 @@ class IntervalServiceTest {
 
     @InjectMocks
     private IntervalService intervalService;
-
-    private Gson gson;
-
-    @BeforeEach()
-    void setUp() {
-        gson = new Gson();
-    }
 
     @Test
     void mergeDigitsTest() {
