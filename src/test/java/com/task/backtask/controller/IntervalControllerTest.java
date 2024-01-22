@@ -1,6 +1,7 @@
 package com.task.backtask.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.task.backtask.entity.DigitInterval;
 import com.task.backtask.entity.LetterInterval;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ class IntervalControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private Gson gson;
+
     @Test
     void mergeDigitsAndFindMinTest() throws Exception {
         var request = List.of(
@@ -47,9 +51,9 @@ class IntervalControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertThat(mergeResult.getResponse().getContentAsString()).isEqualTo(expectedMerge.toString());
+        assertThat(mergeResult.getResponse().getContentAsString()).isEqualTo(gson.toJson(expectedMerge));
 
-        var expectedMin = new DigitInterval(1, 6);
+        var expectedMin = List.of(1, 6);
 
         var minResult = mockMvc.perform(get("/api/v1/intervals/min")
                         .contentType("application/json")
@@ -57,7 +61,7 @@ class IntervalControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertThat(minResult.getResponse().getContentAsString()).isEqualTo(expectedMin.toString());
+        assertThat(minResult.getResponse().getContentAsString()).isEqualTo(gson.toJson(expectedMin));
     }
 
     @Test
@@ -80,9 +84,9 @@ class IntervalControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertThat(mergeResult.getResponse().getContentAsString()).isEqualTo(expectedMerge.toString());
+        assertThat(mergeResult.getResponse().getContentAsString()).isEqualTo(gson.toJson(expectedMerge));
 
-        var expectedMin = new LetterInterval("a", "j");
+        var expectedMin = List.of("a", "j");
 
         var minResult = mockMvc.perform(get("/api/v1/intervals/min")
                         .contentType("application/json")
@@ -90,7 +94,7 @@ class IntervalControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertThat(minResult.getResponse().getContentAsString()).isEqualTo(expectedMin.toString());
+        assertThat(minResult.getResponse().getContentAsString()).isEqualTo(gson.toJson(expectedMin));
     }
 
     @Test

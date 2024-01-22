@@ -20,8 +20,4 @@ public class DigitInterval {
 
     private final int end;
 
-    @Override
-    public String toString() {
-        return "[" + start + ", " + end + "]";
-    }
 }

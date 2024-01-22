@@ -1,10 +1,14 @@
 package com.task.backtask.service;
 
+import com.google.gson.Gson;
 import com.task.backtask.entity.DigitInterval;
 import com.task.backtask.entity.LetterInterval;
 import com.task.backtask.repository.DigitIntervalRepo;
 import com.task.backtask.repository.LetterIntervalRepo;
 import com.task.backtask.types.Kind;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,6 +36,13 @@ class IntervalServiceTest {
     @InjectMocks
     private IntervalService intervalService;
 
+    private Gson gson;
+
+    @BeforeEach()
+    void setUp() {
+        gson = new Gson();
+    }
+
     @Test
     void mergeDigitsTest() {
         var returned = intervalService.merge(
@@ -46,7 +57,7 @@ class IntervalServiceTest {
         var expected = List.of(
                 List.of(1, 6),
                 List.of(8, 10)
-        ).toString();
+        );
 
         assertThat(returned).isEqualTo(expected);
 
@@ -73,7 +84,7 @@ class IntervalServiceTest {
         var expected = List.of(
                 List.of("a", "j"),
                 List.of("r", "z")
-        ).toString();
+        );
 
         assertThat(returned).isEqualTo(expected);
 
@@ -88,19 +99,19 @@ class IntervalServiceTest {
 
     @Test
     void minDigitsTest() {
-        var expected = new DigitInterval(1, 6);
+        var expected = List.of(1, 6);
 
-        when(digitIntervalRepo.findMinInterval()).thenReturn(Optional.of(expected));
+        when(digitIntervalRepo.findMinInterval()).thenReturn(Optional.of(new DigitInterval(1, 6)));
 
-        assertThat(intervalService.min(Kind.DIGITS)).isEqualTo(expected.toString());
+        assertThat(intervalService.min(Kind.DIGITS)).isEqualTo(expected);
     }
 
     @Test
     void minLettersTest() {
-        var expected = new LetterInterval("a", "j");
+        var expected = List.of("a", "j");
 
-        when(letterIntervalRepo.findMinInterval()).thenReturn(Optional.of(expected));
+        when(letterIntervalRepo.findMinInterval()).thenReturn(Optional.of(new LetterInterval("a", "j")));
 
-        assertThat(intervalService.min(Kind.LETTERS)).isEqualTo(expected.toString());
+        assertThat(intervalService.min(Kind.LETTERS)).isEqualTo(expected);
     }
 }

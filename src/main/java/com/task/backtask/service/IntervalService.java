@@ -8,9 +8,7 @@ import com.task.backtask.types.Kind;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 @RequiredArgsConstructor
@@ -21,21 +19,14 @@ public class IntervalService {
 
     private final LetterIntervalRepo letterIntervalRepo;
 
-    public String merge(List<List<?>> request, Kind kind) {
+    public List<List<?>> merge(List<List<?>> request, Kind kind) {
         return switch (kind) {
             case DIGITS -> digitsMerge(request);
             case LETTERS -> lettersMerge(request);
         };
     }
 
-    public String min(Kind kind) {
-        return switch (kind) {
-            case DIGITS -> digitIntervalRepo.findMinInterval().orElseThrow().toString();
-            case LETTERS -> letterIntervalRepo.findMinInterval().orElseThrow().toString();
-        };
-    }
-
-    private String digitsMerge(List<List<?>> request) {
+    private List<List<?>> digitsMerge(List<List<?>> request) {
         var intervals = request
                 .stream()
                 .map(i -> (List<Integer>) i)
@@ -68,10 +59,10 @@ public class IntervalService {
                         .toList()
         );
 
-        return output.toString();
+        return new ArrayList<>(output);
     }
 
-    private String lettersMerge(List<List<?>> request) {
+    private List<List<?>> lettersMerge(List<List<?>> request) {
         var intervals = request
                 .stream()
                 .map(i -> {
@@ -110,7 +101,30 @@ public class IntervalService {
                         .toList()
         );
 
-        return output.toString();
+        return new ArrayList<>(output);
+    }
+
+    public List<?> min(Kind kind) {
+        return switch (kind) {
+            case DIGITS -> digitsMin();
+            case LETTERS -> lettersMin();
+        };
+    }
+
+    private List<?> digitsMin() {
+        var interval = digitIntervalRepo.findMinInterval().orElseThrow();
+        return Arrays.asList(
+                interval.getStart(),
+                interval.getEnd()
+        );
+    }
+
+    private List<?> lettersMin() {
+        var interval = letterIntervalRepo.findMinInterval().orElseThrow();
+        return Arrays.asList(
+                interval.getStart(),
+                interval.getEnd()
+        );
     }
 
 }
