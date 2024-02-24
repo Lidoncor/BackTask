@@ -10,8 +10,8 @@
 
 ## Требования
 
-- Java 17.0.7
-- Apache Maven
+- `Java 17.0.7`
+- `Apache Maven 3.9.6`
 
 ## Описание
 
